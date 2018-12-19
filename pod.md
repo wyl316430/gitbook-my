@@ -1,4 +1,4 @@
-个人对pod的理解，pod是kubernetes中的最小单元（官方），pod可由一个或者多个docker容器构成，pod主要由yaml/json创建，pod可水平扩展应用程序。pod可以单独创建在节点上，但是当这个节点出现问题重启或者pod自身出现问题，它会在被
+个人对pod的理解，pod是kubernetes中的最小单元（官方），pod可由一个或者多个docker容器构成，pod主要由yaml/json创建，pod可水平扩展应用程序。pod可以单独创建在节点上。测试后发现，pod创建在节点后，当这个节点出现问题重启或者pod出现问题，pod会被删除。官方：Pod不会自愈。如果Pod运行的Node故障，或者是调度器本身故障，这个Pod就会被删除。同样的，如果Pod所在Node缺少资源或者Pod处于维护状态，Pod也会被驱逐。Kubernetes使用更高级的称为Controller的抽象层，来管理Pod实例。虽然可以直接使用Pod，但是在Kubernetes中通常是使用Controller来管理Pod的。
 
 # **官方pod介绍：**
 
@@ -51,8 +51,8 @@ Pod可以指定一组共享存储_卷_。Pod中的所有容器都可以访问共
 
 你很少直接在Kubernetes - 甚至是单身Pod中创建单独的Pod。这是因为Pods被设计为相对短暂的一次性实体。当Pod（由您直接创建或由Controller间接创建）时，它将被安排在群集中的节点上运行。Pod保留在该节点上，直到进程终止，pod对象被删除，pod因资源不足而被_驱逐_，或者Node失败。
 
-> **注意：**
-> 不应将重新启动Pod重新启动Pod中的容器。
+> **注意：**  
+> 不应将重新启动Pod重新启动Pod中的容器。  
 > Pod本身不会运行，但是容器运行的环境会持续存在，直到删除为止。
 
 豆荚本身不能自我修复。如果将Pod调度到失败的节点，或者调度操作本身失败，则删除Pod;同样，由于缺乏资源或节点维护，Pod将无法在驱逐中存活。Kubernetes使用更高级别的抽象，称为_Controller_，它处理管理相对可处理的Pod实例的工作。因此，尽管可以直接使用Pod，但在Kubernetes中使用Controller管理pod更为常见。有关Kubernetes如何使用控制器实现Pod缩放和修复的更多信息，请参阅[Pods和控制器](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/#pods-and-controllers)。
@@ -150,6 +150,4 @@ Pod作为基元公开，以便于：
 强制删除pod被定义为立即从群集状态和etcd删除pod。当执行强制删除时，apiserver不会等待来自kubelet的确认该pod已在其运行的节点上终止。它会立即删除API中的pod，以便可以使用相同的名称创建新的pod。在节点上，设置为立即终止的pod在被强制终止之前仍将被给予一个小的宽限期。
 
 强制删除可能对某些吊舱有潜在危险，应谨慎执行。对于StatefulSet pod，请参阅任务文档以[从StatefulSet中删除](https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/)Pod。
-
-
 
