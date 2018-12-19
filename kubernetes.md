@@ -14,7 +14,7 @@ kube-scheduler ：调度器，检测新建没有分配节点的pod，根据每�
 
 kubelet ：节点主要组成部分，管理分配到节点上的pod，自动注册到apiserver，定期将节点的状态发送给apiserver。同时接收并执行apiserver传达的命令。
 
-kube-proxy ：自动发现服务，服务的端口转发。
+kube-proxy ：网络代理。
 
 ipvs：节点的负载均衡。
 
