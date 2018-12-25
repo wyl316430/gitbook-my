@@ -14,7 +14,7 @@ kube-scheduler ：调度器，检测新建没有分配节点的pod，根据每�
 
 kubelet ：节点主要组成部分，管理分配到节点上的pod，自动注册到apiserver，定期将节点的状态发送给apiserver。同时接收并执行apiserver传达的命令。
 
-kube-proxy ：为Service服务提供网络转发服务，实现了内部pod到service和外部通过node port到内部service的访问。基于iptables实现service到pod负载均衡功能，v1.6版本使用iptables 的 kube-proxy 实际上是将集群扩展到5000个节点的瓶颈。 一个例子是，在5000节点集群中使用 NodePort 服务，如果我们有2000个服务并且每个服务有10个 pod，这将在每个工作节点上至少产生20000个 iptable 记录，这可能使内核非常繁忙。
+kube-proxy ：为Service服务提供网络转发服务，实现了内部pod到service和外部通过node port到内部service的访问。基于iptables实现service到pod负载均衡功能（老版本的负载均衡），v1.6版本使用iptables 的 kube-proxy 实际上是将集群扩展到5000个节点的瓶颈。 一个例子是，在5000节点集群中使用 NodePort 服务，如果我们有2000个服务并且每个服务有10个 pod，这将在每个工作节点上至少产生20000个 iptable 记录，这可能使内核非常繁忙。
 
 ipvs：节点的负载均衡。
 
